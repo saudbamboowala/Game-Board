@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-const Snake = () => {
+const SnakeGame = () => {
   const GRID_SIZE = 20;
   const INITIAL_SNAKE = [{ x: 10, y: 10 }];
   const INITIAL_FOOD = { x: 5, y: 5 };
@@ -13,7 +13,7 @@ const Snake = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(parseInt(localStorage.getItem('snakeHighScore') || '0'));
-  const [speed, setSpeed] = useState(150);
+  const [speed, setSpeed] = useState(300);
 
   // Generate random food position
   const generateFood = useCallback(() => {
@@ -66,7 +66,7 @@ const Snake = () => {
           });
           setFood(generateFood());
           // Increase speed slightly
-          setSpeed(prevSpeed => Math.max(80, prevSpeed - 2));
+          setSpeed(prevSpeed => Math.max(150, prevSpeed - 3));
         } else {
           newSnake.pop();
         }
@@ -116,7 +116,7 @@ const Snake = () => {
     setGameOver(false);
     setGameStarted(false);
     setScore(0);
-    setSpeed(150);
+    setSpeed(300);
   };
 
   const startGame = () => {
@@ -145,16 +145,17 @@ const Snake = () => {
         backdropFilter: 'blur(20px)',
         borderRadius: '24px',
         boxShadow: '0 25px 50px rgba(0, 0, 0, 0.25)',
-        padding: '40px',
+        padding: '20px',
         width: '100%',
-        maxWidth: '600px',
-        border: '1px solid rgba(255, 255, 255, 0.3)'
+        maxWidth: '90vw',
+        border: '1px solid rgba(255, 255, 255, 0.3)',
+        margin: '0 auto'
       }}>
         <h1 style={{
-          fontSize: '48px',
+          fontSize: 'clamp(32px, 6vw, 48px)',
           fontWeight: '900',
           textAlign: 'center',
-          marginBottom: '32px',
+          marginBottom: '24px',
           background: 'linear-gradient(135deg, #667eea, #764ba2, #f093fb, #f5576c)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
@@ -168,35 +169,43 @@ const Snake = () => {
         <div style={{
           background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
           borderRadius: '16px',
-          padding: '20px',
-          marginBottom: '24px',
+          padding: '16px',
+          marginBottom: '20px',
           border: '2px solid rgba(255, 255, 255, 0.5)',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
           display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
+          flexDirection: 'column',
+          gap: '12px'
         }}>
           <div style={{
-            fontSize: '18px',
-            fontWeight: 'bold',
-            color: '#4c1d95',
-            background: 'rgba(255, 255, 255, 0.8)',
-            padding: '12px 20px',
-            borderRadius: '20px',
-            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '8px'
           }}>
-            🏆 Score: {score}
-          </div>
-          <div style={{
-            fontSize: '18px',
-            fontWeight: 'bold',
-            color: '#be185d',
-            background: 'rgba(255, 255, 255, 0.8)',
-            padding: '12px 20px',
-            borderRadius: '20px',
-            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
-          }}>
-            🔥 High Score: {highScore}
+            <div style={{
+              fontSize: 'clamp(14px, 3vw, 16px)',
+              fontWeight: 'bold',
+              color: '#4c1d95',
+              background: 'rgba(255, 255, 255, 0.8)',
+              padding: '8px 16px',
+              borderRadius: '20px',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+            }}>
+              🏆 Score: {score}
+            </div>
+            <div style={{
+              fontSize: 'clamp(14px, 3vw, 16px)',
+              fontWeight: 'bold',
+              color: '#be185d',
+              background: 'rgba(255, 255, 255, 0.8)',
+              padding: '8px 16px',
+              borderRadius: '20px',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+            }}>
+              🔥 High Score: {highScore}
+            </div>
           </div>
         </div>
 
@@ -212,7 +221,7 @@ const Snake = () => {
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
         }}>
           <h2 style={{
-            fontSize: '20px',
+            fontSize: 'clamp(16px, 4vw, 20px)',
             fontWeight: 'bold',
             textAlign: 'center',
             color: 'white',
@@ -230,10 +239,13 @@ const Snake = () => {
           gap: '1px',
           background: 'linear-gradient(135deg, #1f2937, #374151)',
           borderRadius: '16px',
-          padding: '16px',
-          marginBottom: '24px',
+          padding: '12px',
+          marginBottom: '20px',
           border: '3px solid rgba(139, 92, 246, 0.3)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+          maxWidth: '500px',
+          margin: '0 auto 20px auto',
+          aspectRatio: '1'
         }}>
           {Array.from({ length: GRID_SIZE * GRID_SIZE }, (_, index) => {
             const x = index % GRID_SIZE;
@@ -246,8 +258,11 @@ const Snake = () => {
               <div
                 key={index}
                 style={{
-                  width: '20px',
-                  height: '20px',
+                  width: '100%',
+                  height: '100%',
+                  minWidth: '15px',
+                  minHeight: '15px',
+                  aspectRatio: '1',
                   borderRadius: '4px',
                   background: isFood ? 'linear-gradient(135deg, #f59e0b, #ef4444)' :
                             isHead ? 'linear-gradient(135deg, #10b981, #059669)' :
@@ -264,7 +279,7 @@ const Snake = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '12px',
+                  fontSize: 'clamp(8px, 2vw, 12px)',
                   color: 'white',
                   fontWeight: 'bold',
                   transition: 'all 0.1s ease'
@@ -277,7 +292,12 @@ const Snake = () => {
         </div>
 
         {/* Control Buttons */}
-        <div style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
+        <div style={{ 
+          display: 'flex', 
+          gap: '12px', 
+          marginBottom: '20px',
+          flexDirection: window.innerWidth < 480 ? 'column' : 'row'
+        }}>
           <button
             onClick={resetGame}
             style={{
@@ -285,7 +305,7 @@ const Snake = () => {
               background: 'linear-gradient(135deg, #667eea, #764ba2)',
               color: 'white',
               fontWeight: 'bold',
-              fontSize: '16px',
+              fontSize: 'clamp(14px, 3vw, 16px)',
               padding: '16px 24px',
               borderRadius: '16px',
               border: 'none',
@@ -312,7 +332,7 @@ const Snake = () => {
                 background: 'linear-gradient(135deg, #10b981, #06b6d4)',
                 color: 'white',
                 fontWeight: 'bold',
-                fontSize: '16px',
+                fontSize: 'clamp(14px, 3vw, 16px)',
                 padding: '16px 24px',
                 borderRadius: '16px',
                 border: 'none',
@@ -343,7 +363,7 @@ const Snake = () => {
             border: '2px solid rgba(139, 92, 246, 0.2)'
           }}>
             <p style={{
-              fontSize: '14px',
+              fontSize: 'clamp(12px, 3vw, 14px)',
               color: '#374151',
               lineHeight: '1.6',
               fontWeight: '500',
@@ -352,7 +372,7 @@ const Snake = () => {
               🎮 <strong>Controls:</strong> Use arrow keys to move the snake
             </p>
             <p style={{
-              fontSize: '14px', 
+              fontSize: 'clamp(12px, 3vw, 14px)',
               color: '#6b7280',
               lineHeight: '1.6',
               fontWeight: '500',
@@ -369,4 +389,4 @@ const Snake = () => {
   );
 };
 
-export default Snake;
+export default SnakeGame;

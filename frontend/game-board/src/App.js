@@ -1,9 +1,7 @@
-import './App.css';
-import Snake from './components/Snake';
-
+import SnakeGame from './Games/SnakeGame';
 function App() {
   return (
-    <Snake />
+    <SnakeGame />
   );  
 }
 
