@@ -1,9 +1,7 @@
-import './App.css';
-import TicTacToe from './Games/TicTacToe';
-
+import SnakeGame from './Games/SnakeGame';
 function App() {
   return (
-    <TicTacToe />
+    <SnakeGame />
   );  
 }
 
