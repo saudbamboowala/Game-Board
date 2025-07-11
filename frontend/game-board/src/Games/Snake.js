@@ -352,7 +352,7 @@ const Snake = () => {
               🎮 <strong>Controls:</strong> Use arrow keys to move the snake
             </p>
             <p style={{
-              fontSize: '14px',
+              fontSize: '14px', 
               color: '#6b7280',
               lineHeight: '1.6',
               fontWeight: '500',
