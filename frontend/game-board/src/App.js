@@ -1,9 +1,9 @@
 import './App.css';
-import TicTacToe from './Games/TicTacToe';
+import Snake from './components/Snake';
 
 function App() {
   return (
-    <TicTacToe />
+    <Snake />
   );  
 }
 
