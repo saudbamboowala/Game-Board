@@ -1,7 +1,7 @@
-import SnakeGame from './Games/SnakeGame';
+import Tetris from './Games/Tetris';
 function App() {
   return (
-    <SnakeGame />
+    <Tetris />
   );  
 }
 
